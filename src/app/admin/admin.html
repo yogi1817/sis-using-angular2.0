@@ -1,0 +1,26 @@
+<div class="container">
+		<div class="row">
+	  			<div class="col-md-3" id="leftCol">	
+					<div class="well vertical-menu"> 
+		              	<ul class="nav nav-stacked" id="sidebar">
+		                  <li><div (click)="toggleTab('loadAttendance')" class="active">Load Attendance</div></li>
+		                  <li><div (click)="toggleTab('loadAssignments')">Load Assigments</div></li>
+		                  <li><div (click)="toggleTab('loadMessage')">Load Messages</div></li>
+		                  <li><div (click)="toggleTab('loadAnnouncements')">Load Announcements</div></li>
+		                  <li><div (click)="toggleTab('loadTimeTable')">Load Time Table</div></li>
+		                  <li><div (click)="toggleTab('loadReportCard')">Load Report Card</div></li>
+		                  <li><div (click)="toggleTab('loadReceipts')">Load Receipts</div></li> 
+		              	</ul>
+	  				</div>
+	      		</div>  
+	      		
+	      		<div>
+	              	<h2><span>
+						{{getWelcomeMessage()}}
+	              		You can choose any option on the left side to perform different function
+					</span></h2> 
+	      		</div> 
+
+				<load-attendance></load-attendance>
+	  	</div>
+</div>

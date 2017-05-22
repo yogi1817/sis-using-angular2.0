@@ -1,0 +1,54 @@
+<div id="header">
+    <div id="logo">
+        <p>
+        <div id="logo_text">
+            <!-- class="logo_colour", allows you to change the colour of the text -->
+            <h1>
+                <a href="#/index.html"><i class="fa fa-registered fa-sm"></i>Jacob High School</a>
+            </h1>
+            <h2>Truth. Wisdom. Prosperity.</h2>
+        </div>
+        <img src="../images/school_logo.jpg" align="right" />
+    </div>
+    <div id="menubar">
+        <ul id="menu">
+            <!-- put class="selected" in the li tag for the selected page - to highlight which page you're on -->
+            <li>
+                <div (click)="toggleTab('home')" [class.selected]="tabName == 'home'">
+                    <i class="fa fa-home"></i>Home
+                </div>
+            </li>
+            <li>
+                <div (click)="toggleTab('about')" [class.selected]="tabName == 'about'">
+                    <i class="fa fa-shield"></i>About JPS
+                </div>
+            </li>
+            <li>
+                <div (click)="toggleTab('carrers')" [class.selected]="tabName == 'carrers'">
+                    <i class="fa fa-pencil fa-fw"></i>Careers
+                </div>
+            </li>
+            <li>
+                <div (click)="toggleTab('contact')" [class.selected]="tabName == 'contact'">
+                    <i class="fa fa-commenting"></i>Contact Us
+                </div>
+            </li>
+            <li>
+                <div (click)="toggleTab('loginForm')" [class.selected]="tabName == 'loginForm'" [hidden]="hideLoginTab()">
+                    <i class="fa fa-check"></i>Login
+                </div>
+            </li>
+            <li>
+                <div (click)="toggleTab('welcomeAdmin')" [class.selected]="tabName == 'welcomeAdmin'" [hidden]="hideAdminTab()"> 
+                    <i class="fa fa-check"></i>Admin
+                </div>
+            </li>
+            <!--<li><div (click)="toggleTab('welcomeStudent')" [class.selected]="tabName == 'welcomeStudent'">
+                                                        <i class="fa fa-check"></i>Student</div></li>
+            <li><div (click)="toggleTab('logout')" [class.selected]="tabName == 'logout'" [hidden]="!logout">
+                                                        <i class="fa fa-check"></i>LogOut</div></li>-->
+        </ul>
+    </div>	
+</div>
+
+<my-body [tabName]="tabName"></my-body>

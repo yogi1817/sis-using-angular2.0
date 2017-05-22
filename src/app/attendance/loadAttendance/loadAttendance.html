@@ -1,0 +1,92 @@
+<table class="table1">
+    <tr>
+        <th>
+            Select Class
+            <select [ngModel]="selectedClass" (ngModelChange)="loadSection($event)">
+                <option *ngFor="let class of user.classDetails | orderby: class">{{class.classNo}}</option>
+            </select>
+        </th>
+        <th [hidden]="hideSection">
+            Select Section
+            <select [ngModel]="selectedSection" (ngModelChange)="loadSubjects($event)">
+                <option *ngFor="let section of sections">{{section}}</option>
+            </select>
+        </th>
+        <th [hidden]="hideSubject">
+            Select Subject
+            <select [ngModel]="selectedSubject" (ngModelChange)="loadStudents($event)">
+                <option *ngFor="let subject of subjects">{{subject}}</option>
+            </select>
+        </th>
+    </tr>
+<table>
+
+<form #submitAttendanceForm="ngForm" (ngSubmit)="submitAttendance(attendanceMatrix)">
+    <table class="table2">
+        <tr [hidden]="hideStudentRow" >
+            <th>
+                First Name
+            </th>
+            <th>
+                Last Name
+            </th>
+            <th>
+                Roll No
+            </th>
+            <th>
+                {{getMonday() | date: 'dd/MM/yy'}}
+            </th>
+            <th>
+                {{getDaysAfterDate(getMonday(), 1) | date: 'dd/MM/yy'}}
+            </th>
+            <th>
+                {{getDaysAfterDate(getMonday(), 2) | date: 'dd/MM/yy'}}
+            </th>
+            <th>
+                {{getDaysAfterDate(getMonday(), 3) | date: 'dd/MM/yy'}}
+            </th>
+            <th>
+                {{getDaysAfterDate(getMonday(), 4) | date: 'dd/MM/yy'}}
+            </th>
+            <th>
+                {{getDaysAfterDate(getMonday(), 5) | date: 'dd/MM/yy'}}
+            </th>
+        </tr>
+        <tr [hidden]="hideStudentRow" *ngFor="let student of students">
+            <td>
+                {{student.firstName}}
+            </td>
+            <td>
+                {{student.lastName}}
+            </td>
+            <td>
+                {{student.rollNo}}
+            </td>
+            <td>
+                <input type="checkbox" (click)="toggleSelection('monday', student.rollNo)"/>
+            </td>
+            <td>
+                <input type="checkbox" (click)="toggleSelection('tuesday', student.rollNo)"/>
+            </td>
+            <td>
+                <input type="checkbox" (click)="toggleSelection('wednesday', student.rollNo)"/>
+            </td>
+            <td>
+                <input type="checkbox" (click)="toggleSelection('thursday', student.rollNo)"/>
+            </td>
+            <td>
+                <input type="checkbox" (click)="toggleSelection('friday', student.rollNo)"/>
+            </td>
+            <td>
+                <input type="checkbox" (click)="toggleSelection('saturday', student.rollNo)"/>
+            </td>
+        </tr>
+    </table>
+
+    <button [hidden]="hideStudentRow" type="submit">Submit Attendance</button>
+</form>
+
+
+<div [hidden]="hideAttendanceSubmittedMessage">
+	<h1>{{attendenceSubmittedMessage}}</h1>	
+</div>
