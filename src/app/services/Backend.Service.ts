@@ -9,6 +9,7 @@ export class BackendService {
     private serverUrl = 'http://localhost:8080';
     private getStudentNameUrl = '/sisbe/admin/students?';
     private submitAttendanceUrl = '/sisbe/attendance?';
+    private getAttendanceUrl = '/sisbe/attendance?';
 
     constructor(private http: Http) {
     }
@@ -24,6 +25,12 @@ export class BackendService {
         let headers = this.createAuthorizationHeader(localStorage.getItem('authenticatedUser'));
         return this.http.post(this.serverUrl+this.submitAttendanceUrl+"subjectName="+subject, 
                     attendanceObject, {headers: headers}).map(this.extractData);
+    }
+
+    getAttendance(subject: string){
+        let headers = this.createAuthorizationHeader(localStorage.getItem('authenticatedUser'));
+        return this.http.get(this.serverUrl+this.getAttendanceUrl+"subjectName="+subject, 
+                    {headers: headers}).map(this.extractData);
     }
 
     private extractData(data: Response) {

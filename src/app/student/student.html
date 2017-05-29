@@ -1,0 +1,26 @@
+<div class="container">
+		<div class="row">
+	  			<div class="col-md-3" id="leftCol">	
+					<div class="well vertical-menu"> 
+		              	<ul class="nav nav-stacked" id="sidebar">
+		                  <li><div (click)="toggleTab('readAttendance')" class="active">Attendance</div></li>
+		                  <li><div (click)="toggleTab('readAssignments')">Assigments</div></li>
+		                  <li><div (click)="toggleTab('readMessage')">Messages</div></li>
+		                  <li><div (click)="toggleTab('readAnnouncements')">Announcements</div></li>
+		                  <li><div (click)="toggleTab('readTimeTable')">Time Table</div></li>
+		                  <li><div (click)="toggleTab('readReportCard')">Report Card</div></li>
+		                  <li><div (click)="toggleTab('readReceipts')">Receipts</div></li> 
+		              	</ul>
+	  				</div>
+	      		</div>  
+	      		
+	      		<div>
+	              	<h2><span>
+						{{getWelcomeMessage()}}
+	              		You can choose any option on the left side to perform different function
+					</span></h2> 
+	      		</div> 
+
+				<read-attendance></read-attendance>
+	  	</div>
+</div>

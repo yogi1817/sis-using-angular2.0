@@ -10,12 +10,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var BodyComponent = (function () {
-    function BodyComponent() {
+    function BodyComponent(cdr) {
+        this.cdr = cdr;
         this.showLogin = true;
     }
-    BodyComponent.prototype.checkTab = function () {
-        return this.tabName;
-    };
     BodyComponent.prototype.setLogin = function (user) {
         if (user == null)
             this.showLogin = true;
@@ -23,8 +21,9 @@ var BodyComponent = (function () {
             this.showLogin = false;
         this.user = user;
     };
-    BodyComponent.prototype.checkLogin = function () {
-        return this.showLogin;
+    BodyComponent.prototype.logout = function () {
+        this.showLogin = true;
+        this.cdr.detectChanges();
     };
     return BodyComponent;
 }());
@@ -36,9 +35,10 @@ BodyComponent = __decorate([
     core_1.Component({
         selector: 'my-body',
         templateUrl: './body.html',
-        styleUrls: ['./body.css', './../../css/style.css', './../../css/bootstrap.min.css']
+        styleUrls: ['./body.css', './../../css/style.css', './../../css/bootstrap.min.css'],
+        changeDetection: core_1.ChangeDetectionStrategy.OnPush
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [core_1.ChangeDetectorRef])
 ], BodyComponent);
 exports.BodyComponent = BodyComponent;
 //# sourceMappingURL=body.component.js.map

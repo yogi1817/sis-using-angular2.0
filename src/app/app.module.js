@@ -9,6 +9,8 @@ var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
 var http_1 = require("@angular/http");
+var ng2_charts_1 = require("ng2-charts");
+require("./../../node_modules/chart.js/dist/Chart.bundle.min.js");
 var app_component_1 = require("./app.component");
 var header_component_1 = require("./header/header.component");
 var footer_component_1 = require("./footer/footer.component");
@@ -19,10 +21,13 @@ var contacts_component_1 = require("./contacts/contacts.component");
 var carrers_component_1 = require("./carrers/carrers.component");
 var loginForm_component_1 = require("./login/loginForm.component");
 var admin_component_1 = require("./admin/admin.component");
+var student_component_1 = require("./student/student.component");
 var loadAttendance_component_1 = require("./attendance/loadAttendance/loadAttendance.component");
+var readAttendance_component_1 = require("./attendance/readAttendance/readAttendance.component");
 var Authentication_Service_1 = require("./services/Authentication.Service");
 var Backend_Service_1 = require("./services/Backend.Service");
 var OrderByPipe_1 = require("./utils/OrderByPipe");
+var pieChart_Component_1 = require("./utils/pieChart/pieChart.Component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -30,12 +35,13 @@ var AppModule = (function () {
 }());
 AppModule = __decorate([
     core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, http_1.HttpModule, http_1.JsonpModule],
+        imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, http_1.HttpModule, http_1.JsonpModule, ng2_charts_1.ChartsModule],
         declarations: [app_component_1.AppComponent, header_component_1.HeaderComponent, footer_component_1.FooterComponent, body_component_1.BodyComponent, home_component_1.HomeComponent,
             about_component_1.AboutComponent, carrers_component_1.CarrersComponent, contacts_component_1.ContactComponent, loginForm_component_1.LoginFormComponent, admin_component_1.AdminComponent,
-            loadAttendance_component_1.LoadAttendanceComponent, OrderByPipe_1.OrderByPipe],
+            loadAttendance_component_1.LoadAttendanceComponent, OrderByPipe_1.OrderByPipe, student_component_1.StudentComponent, readAttendance_component_1.ReadAttendanceComponent,
+            pieChart_Component_1.PieChartComponent],
         bootstrap: [app_component_1.AppComponent],
-        providers: [Authentication_Service_1.AuthenticationService, Backend_Service_1.BackendService],
+        providers: [Authentication_Service_1.AuthenticationService, Backend_Service_1.BackendService]
     })
 ], AppModule);
 exports.AppModule = AppModule;

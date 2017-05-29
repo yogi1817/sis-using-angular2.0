@@ -17,13 +17,13 @@ var HeaderComponent = (function () {
     HeaderComponent.prototype.toggleTab = function (tabName) {
         this.tabName = tabName;
     };
-    HeaderComponent.prototype.hideLoginTab = function () {
+    HeaderComponent.prototype.loginTab = function () {
         if (localStorage.getItem('authenticatedUser') == null) {
-            return false;
+            return true;
         }
+        this.user = JSON.parse(localStorage.getItem('user'));
         //Below code is written to set current page as welcome page and not login page
-        if (this.tabName != 'welcomeAdmin'
-            && (this.tabName == 'loginForm' || this.tabName == 'welcomeAdmin')) {
+        if (this.tabName == 'loginForm') {
             if (localStorage.getItem('role') == 'admin') {
                 this.toggleTab('welcomeAdmin');
                 this.cdr.detectChanges();
@@ -33,13 +33,23 @@ var HeaderComponent = (function () {
                 this.cdr.detectChanges();
             }
         }
-        return true;
+        return false;
     };
-    HeaderComponent.prototype.hideAdminTab = function () {
+    HeaderComponent.prototype.logout = function () {
+        localStorage.clear();
+        this.toggleTab('loginForm');
+    };
+    HeaderComponent.prototype.adminTab = function () {
         if (localStorage.getItem('role') == 'admin') {
-            return false;
+            return true;
         }
-        return true;
+        return false;
+    };
+    HeaderComponent.prototype.studentTab = function () {
+        if (localStorage.getItem('role') == 'student') {
+            return true;
+        }
+        return false;
     };
     return HeaderComponent;
 }());

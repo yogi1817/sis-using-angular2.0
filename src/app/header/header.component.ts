@@ -1,4 +1,5 @@
 import { Component, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import { User } from './../login/pojo/user';
 
 @Component({
     selector: 'my-header',
@@ -9,20 +10,21 @@ import { Component, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/
 
 export class HeaderComponent {
     tabName: string = 'home';
+    user: User;
     constructor(private cdr:ChangeDetectorRef){} 
 
     toggleTab(tabName: string){
         this.tabName = tabName;
     }   
 
-    hideLoginTab(){
+    loginTab(){
         if(localStorage.getItem('authenticatedUser') == null){
-            return false;
+            return true;
         }
 
+        this.user = JSON.parse(localStorage.getItem('user'));
         //Below code is written to set current page as welcome page and not login page
-        if(this.tabName != 'welcomeAdmin' 
-                && (this.tabName =='loginForm' || this.tabName =='welcomeAdmin')){
+        if(this.tabName =='loginForm'){  
                 if(localStorage.getItem('role') == 'admin'){
                     this.toggleTab('welcomeAdmin');
                     this.cdr.detectChanges();
@@ -32,14 +34,27 @@ export class HeaderComponent {
                     this.cdr.detectChanges();
                 }
         }    
-        return true;
+        return false;
     }
 
-    hideAdminTab(){
+    logout(){
+        localStorage.clear();
+        this.toggleTab('loginForm');
+    }
+
+    adminTab(){
         if(localStorage.getItem('role') == 'admin'){
-            return false;
+            return true;
         }
             
-        return true;
+        return false;
+    }
+
+    studentTab(){
+        if(localStorage.getItem('role') == 'student'){
+            return true;
+        }
+            
+        return false;
     }
 }

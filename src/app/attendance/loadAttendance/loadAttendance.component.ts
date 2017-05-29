@@ -94,7 +94,7 @@ export class LoadAttendanceComponent implements OnInit{
     }
 
     toggleSelection(dayOfWeek: string, rollNo: number){
-        var attendance = new Attendance(rollNo, dayOfWeek);
+        var attendance = new Attendance(rollNo, dayOfWeek, null, null, null);
         this.attendanceMatrix.push(attendance);
     }
 }

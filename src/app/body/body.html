@@ -1,6 +1,7 @@
-<my-home *ngIf="checkTab()=='home'"></my-home>
-<my-about *ngIf="checkTab()=='about'"></my-about>
-<my-contact *ngIf="checkTab()=='contact'"></my-contact>
-<my-carrers *ngIf="checkTab()=='carrers'"></my-carrers>
-<login-form (loginResult)=setLogin($event) *ngIf="checkTab()=='loginForm' && checkLogin()"></login-form>
-<admin-tab [user]="user" *ngIf="checkTab()=='welcomeAdmin'"></admin-tab>
+<my-home *ngIf="tabName=='home'"></my-home>
+<my-about *ngIf="tabName=='about'"></my-about>
+<my-contact *ngIf="tabName=='contact'"></my-contact>
+<my-carrers *ngIf="tabName=='carrers'"></my-carrers>
+<login-form (loginResult)=setLogin($event) *ngIf="tabName=='loginForm' && showLogin"></login-form>
+<admin-tab [user]="user" *ngIf="tabName=='welcomeAdmin'"></admin-tab>
+<student-tab [user]="user" *ngIf="tabName=='welcomeStudent'"></student-tab>

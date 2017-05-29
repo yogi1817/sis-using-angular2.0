@@ -17,6 +17,7 @@ var BackendService = (function () {
         this.serverUrl = 'http://localhost:8080';
         this.getStudentNameUrl = '/sisbe/admin/students?';
         this.submitAttendanceUrl = '/sisbe/attendance?';
+        this.getAttendanceUrl = '/sisbe/attendance?';
     }
     BackendService.prototype.getStudentNamesForAdmin = function (classNo, section, subject) {
         var headers = this.createAuthorizationHeader(localStorage.getItem('authenticatedUser'));
@@ -27,6 +28,10 @@ var BackendService = (function () {
     BackendService.prototype.submitAttendance = function (attendanceObject, subject) {
         var headers = this.createAuthorizationHeader(localStorage.getItem('authenticatedUser'));
         return this.http.post(this.serverUrl + this.submitAttendanceUrl + "subjectName=" + subject, attendanceObject, { headers: headers }).map(this.extractData);
+    };
+    BackendService.prototype.getAttendance = function (subject) {
+        var headers = this.createAuthorizationHeader(localStorage.getItem('authenticatedUser'));
+        return this.http.get(this.serverUrl + this.getAttendanceUrl + "subjectName=" + subject, { headers: headers }).map(this.extractData);
     };
     BackendService.prototype.extractData = function (data) {
         return data.json();

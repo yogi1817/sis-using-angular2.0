@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges} from '@angular/core';
+import { Component, Input, ChangeDetectorRef, ChangeDetectionStrategy} from '@angular/core';
 import { HeaderComponent } from './../header/header.component';
 import { LoginFormComponent } from './../login/loginForm.component';
 import { User } from './../login/pojo/user';
@@ -6,20 +6,18 @@ import { User } from './../login/pojo/user';
 @Component({
     selector: 'my-body',
     templateUrl: './body.html',
-    styleUrls: ['./body.css', './../../css/style.css', './../../css/bootstrap.min.css']
+    styleUrls: ['./body.css', './../../css/style.css', './../../css/bootstrap.min.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class BodyComponent {
     @Input() tabName: string;
     showLogin: boolean;
     user: User;
-    constructor(){
+
+    constructor(private cdr:ChangeDetectorRef){
         this.showLogin = true;
     }    
-
-    checkTab(){
-        return this.tabName;
-    }
 
     setLogin(user: User){
         if(user == null)
@@ -30,7 +28,8 @@ export class BodyComponent {
         this.user = user;
     }
 
-    checkLogin(){
-        return this.showLogin;
+    logout(){
+        this.showLogin = true;
+        this.cdr.detectChanges();
     }
 }

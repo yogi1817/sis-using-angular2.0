@@ -1,0 +1,34 @@
+<h3>Please choose subject to see attendance or you can choose ALL</h3>
+<h3 *ngIf="showPieChart">{{attendenceReceivedMessage}}</h3>	
+<table class="table1">
+    <tr>
+        <th>
+            Select Subject
+            <select [ngModel]="selectedSubject" (ngModelChange)="getAttendance($event)">
+                <option *ngFor="let subject of user.classDetails[0].subject">{{subject}}</option>
+            </select>
+        </th>
+        <th *ngIf="showMonth">
+            Select Month
+            <select [ngModel]="selectedMonth" (ngModelChange)="drawPieForMonth($event)">
+                <option *ngFor="let attendance of attendanceList">{{attendance.monthName}}</option>
+            </select>
+        </th>
+        <th *ngIf="showPieChart">
+            <pie-chart [pieChartData]="pieChartData"></pie-chart>
+        </th>
+    </tr>
+</table>
+
+<div *ngIf="showPieChart">
+    <h3>Please choose subject to see attendance or you can choose ALL</h3>
+    <input type="button" value="Yes" (click)="showAttendance()">
+</div>
+
+<table class="table1" *ngIf="showAttendanceFlag">
+    <tr *ngFor="let absentDate of absentDates">
+        <td>
+                {{absentDate | date: 'yMMMMd'}}
+        </td>
+    </tr>
+</table>

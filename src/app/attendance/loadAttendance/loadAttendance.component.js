@@ -84,7 +84,7 @@ var LoadAttendanceComponent = (function () {
         return date.setDate(date.getDate() + noOfDays);
     };
     LoadAttendanceComponent.prototype.toggleSelection = function (dayOfWeek, rollNo) {
-        var attendance = new Attendance_1.Attendance(rollNo, dayOfWeek);
+        var attendance = new Attendance_1.Attendance(rollNo, dayOfWeek, null, null, null);
         this.attendanceMatrix.push(attendance);
     };
     return LoadAttendanceComponent;
