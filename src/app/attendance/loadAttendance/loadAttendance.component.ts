@@ -19,13 +19,13 @@ export class LoadAttendanceComponent implements OnInit{
     selectedClassNo: number;
     sections: Array<String> = []; 
     selectedSection: string;
-    hideSection: boolean = true;
+    loadSectionFlag: boolean = false;
     subjects: Array<String> = [];
     selectedSubject: string;
-    hideSubject: boolean = true;
+    loadSubject: boolean = false;
     students: Array<User>;
-    hideStudentRow: boolean = true;
-    hideAttendanceSubmittedMessage: boolean = true;
+    loadStudentRow: boolean = false;
+    loadAttendanceSubmittedMessage: boolean = false;
     attendenceSubmittedMessage: string;
     week: Array<any> = [];
     todaysDate: Date = new Date();
@@ -39,7 +39,7 @@ export class LoadAttendanceComponent implements OnInit{
         this.sections = [" "];
         this.user.classDetails.forEach(element => {
             if(element.classNo == $event){
-                this.hideSection = false;
+                this.loadSectionFlag = true;
                 this.sections.push(element.section);
             }
         });
@@ -50,7 +50,7 @@ export class LoadAttendanceComponent implements OnInit{
         this.subjects = [" "];
         this.user.classDetails.forEach(element => {
             if(element.classNo == this.selectedClassNo && element.section == $event){
-                this.hideSubject = false;
+                this.loadSubject = true;
                 this.subjects.push(...element.subject);
             }
         });
@@ -62,7 +62,7 @@ export class LoadAttendanceComponent implements OnInit{
          this.backendService.getStudentNamesForAdmin(this.selectedClassNo, 
                                     this.selectedSection, $event).subscribe(classData => {
          this.students = classData;
-         this.hideStudentRow = false;
+         this.loadStudentRow = true;
          this.cdr.detectChanges();
         });
     }
@@ -77,7 +77,7 @@ export class LoadAttendanceComponent implements OnInit{
                             });
             this.attendenceSubmittedMessage = "Your attendance for this week is submitted";
         }
-        this.hideAttendanceSubmittedMessage = false;
+        this.loadAttendanceSubmittedMessage = true;
         
     }
 

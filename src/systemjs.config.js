@@ -50,6 +50,8 @@
       '@angular/upgrade': 'npm:@angular/upgrade/bundles/upgrade.umd.js',
       '@angular/upgrade/static': 'npm:@angular/upgrade/bundles/upgrade-static.umd.js',
       "ng2-charts": "node_modules/ng2-charts",
+      "ng2-file-upload": "node_modules/ng2-file-upload",
+      'ng2-bs3-modal': 'node_modules/ng2-bs3-modal',
       // other libraries
       'rxjs':                      'npm:rxjs@5.0.1',
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
@@ -73,6 +75,14 @@
       },
       "ng2-charts": { 
         main: "ng2-charts.js", 
+        defaultExtension: "js" 
+      },
+      "ng2-file-upload": { 
+        main: "ng2-file-upload.js", 
+        defaultExtension: "js" 
+      },
+      "ng2-bs3-modal": {
+        main: "ng2-bs3-modal.js", 
         defaultExtension: "js" 
       }
     }

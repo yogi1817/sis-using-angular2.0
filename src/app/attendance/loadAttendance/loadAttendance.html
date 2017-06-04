@@ -6,13 +6,13 @@
                 <option *ngFor="let class of user.classDetails | orderby: class">{{class.classNo}}</option>
             </select>
         </th>
-        <th [hidden]="hideSection">
+        <th *ngIf="loadSectionFlag">
             Select Section
             <select [ngModel]="selectedSection" (ngModelChange)="loadSubjects($event)">
                 <option *ngFor="let section of sections">{{section}}</option>
             </select>
         </th>
-        <th [hidden]="hideSubject">
+        <th *ngIf="loadSubject">
             Select Subject
             <select [ngModel]="selectedSubject" (ngModelChange)="loadStudents($event)">
                 <option *ngFor="let subject of subjects">{{subject}}</option>
@@ -23,7 +23,7 @@
 
 <form #submitAttendanceForm="ngForm" (ngSubmit)="submitAttendance(attendanceMatrix)">
     <table class="table2">
-        <tr [hidden]="hideStudentRow" >
+        <tr *ngIf="loadStudentRow">
             <th>
                 First Name
             </th>
@@ -52,7 +52,7 @@
                 {{getDaysAfterDate(getMonday(), 5) | date: 'dd/MM/yy'}}
             </th>
         </tr>
-        <tr [hidden]="hideStudentRow" *ngFor="let student of students">
+        <tr [hidden]="!loadStudentRow" *ngFor="let student of students">
             <td>
                 {{student.firstName}}
             </td>
@@ -83,7 +83,7 @@
         </tr>
     </table>
 
-    <button [hidden]="hideStudentRow" type="submit">Submit Attendance</button>
+    <button *ngIf="loadStudentRow" type="submit">Submit Attendance</button>
 </form>
 
 

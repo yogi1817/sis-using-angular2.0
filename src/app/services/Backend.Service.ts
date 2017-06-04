@@ -15,20 +15,20 @@ export class BackendService {
     }
 
     getStudentNamesForAdmin(classNo: number, section: string, subject: string){
-        let headers = this.createAuthorizationHeader(localStorage.getItem('authenticatedUser'));
+        let headers = this.createAuthorizationHeader();
         return this.http.get(this.serverUrl+this.getStudentNameUrl+
                         "classNo="+classNo+"&section="+section+"&subject="+subject, {headers: headers})
                         .map(this.extractData);
     }
 
     submitAttendance(attendanceObject: Array<Attendance>, subject: string){
-        let headers = this.createAuthorizationHeader(localStorage.getItem('authenticatedUser'));
+        let headers = this.createAuthorizationHeader();
         return this.http.post(this.serverUrl+this.submitAttendanceUrl+"subjectName="+subject, 
                     attendanceObject, {headers: headers}).map(this.extractData);
     }
 
     getAttendance(subject: string){
-        let headers = this.createAuthorizationHeader(localStorage.getItem('authenticatedUser'));
+        let headers = this.createAuthorizationHeader();
         return this.http.get(this.serverUrl+this.getAttendanceUrl+"subjectName="+subject, 
                     {headers: headers}).map(this.extractData);
     }
@@ -37,11 +37,19 @@ export class BackendService {
             return data.json();
     }
 
-    createAuthorizationHeader(userName: string):  Headers{
+    createAuthorizationHeader():  Headers{
         var headers = new Headers();
         headers.append('Authorization', 'Basic dG9tY2F0OnRvbWNhdA==');
-        headers.append('userName', userName);
+        headers.append('userName', localStorage.getItem('authenticatedUser'));
         headers.append('customAuthorization', localStorage.getItem('token'));
+        return headers;
+    }
+
+    createAuthorizationHeaderForFileUpload(){
+        var headers = [{"name": "Authorization", "value": "Basic dG9tY2F0OnRvbWNhdA=="},
+                        {"name": "userName","value": localStorage.getItem('authenticatedUser')},
+                        {"name": "customAuthorization","value": localStorage.getItem('token')}
+                        ];
         return headers;
     }
 }

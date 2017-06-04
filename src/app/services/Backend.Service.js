@@ -20,27 +20,34 @@ var BackendService = (function () {
         this.getAttendanceUrl = '/sisbe/attendance?';
     }
     BackendService.prototype.getStudentNamesForAdmin = function (classNo, section, subject) {
-        var headers = this.createAuthorizationHeader(localStorage.getItem('authenticatedUser'));
+        var headers = this.createAuthorizationHeader();
         return this.http.get(this.serverUrl + this.getStudentNameUrl +
             "classNo=" + classNo + "&section=" + section + "&subject=" + subject, { headers: headers })
             .map(this.extractData);
     };
     BackendService.prototype.submitAttendance = function (attendanceObject, subject) {
-        var headers = this.createAuthorizationHeader(localStorage.getItem('authenticatedUser'));
+        var headers = this.createAuthorizationHeader();
         return this.http.post(this.serverUrl + this.submitAttendanceUrl + "subjectName=" + subject, attendanceObject, { headers: headers }).map(this.extractData);
     };
     BackendService.prototype.getAttendance = function (subject) {
-        var headers = this.createAuthorizationHeader(localStorage.getItem('authenticatedUser'));
+        var headers = this.createAuthorizationHeader();
         return this.http.get(this.serverUrl + this.getAttendanceUrl + "subjectName=" + subject, { headers: headers }).map(this.extractData);
     };
     BackendService.prototype.extractData = function (data) {
         return data.json();
     };
-    BackendService.prototype.createAuthorizationHeader = function (userName) {
+    BackendService.prototype.createAuthorizationHeader = function () {
         var headers = new http_1.Headers();
         headers.append('Authorization', 'Basic dG9tY2F0OnRvbWNhdA==');
-        headers.append('userName', userName);
+        headers.append('userName', localStorage.getItem('authenticatedUser'));
         headers.append('customAuthorization', localStorage.getItem('token'));
+        return headers;
+    };
+    BackendService.prototype.createAuthorizationHeaderForFileUpload = function () {
+        var headers = [{ "name": "Authorization", "value": "Basic dG9tY2F0OnRvbWNhdA==" },
+            { "name": "userName", "value": localStorage.getItem('authenticatedUser') },
+            { "name": "customAuthorization", "value": localStorage.getItem('token') }
+        ];
         return headers;
     };
     return BackendService;

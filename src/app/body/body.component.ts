@@ -20,7 +20,9 @@ export class BodyComponent {
     }    
 
     setLogin(user: User){
-        if(user == null)
+        if(user==null)
+            this.showLogin = true;
+        else if(user.errorMessageFlag)
             this.showLogin = true;
         else    
             this.showLogin = false;

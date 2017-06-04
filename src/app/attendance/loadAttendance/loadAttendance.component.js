@@ -16,11 +16,11 @@ var LoadAttendanceComponent = (function () {
         this.backendService = backendService;
         this.cdr = cdr;
         this.sections = [];
-        this.hideSection = true;
+        this.loadSectionFlag = false;
         this.subjects = [];
-        this.hideSubject = true;
-        this.hideStudentRow = true;
-        this.hideAttendanceSubmittedMessage = true;
+        this.loadSubject = false;
+        this.loadStudentRow = false;
+        this.loadAttendanceSubmittedMessage = false;
         this.week = [];
         this.todaysDate = new Date();
         this.attendanceMatrix = [];
@@ -33,7 +33,7 @@ var LoadAttendanceComponent = (function () {
         this.sections = [" "];
         this.user.classDetails.forEach(function (element) {
             if (element.classNo == $event) {
-                _this.hideSection = false;
+                _this.loadSectionFlag = true;
                 _this.sections.push(element.section);
             }
         });
@@ -44,7 +44,7 @@ var LoadAttendanceComponent = (function () {
         this.subjects = [" "];
         this.user.classDetails.forEach(function (element) {
             if (element.classNo == _this.selectedClassNo && element.section == $event) {
-                _this.hideSubject = false;
+                _this.loadSubject = true;
                 (_a = _this.subjects).push.apply(_a, element.subject);
             }
             var _a;
@@ -56,7 +56,7 @@ var LoadAttendanceComponent = (function () {
         this.selectedSubject = $event;
         this.backendService.getStudentNamesForAdmin(this.selectedClassNo, this.selectedSection, $event).subscribe(function (classData) {
             _this.students = classData;
-            _this.hideStudentRow = false;
+            _this.loadStudentRow = true;
             _this.cdr.detectChanges();
         });
     };
@@ -71,7 +71,7 @@ var LoadAttendanceComponent = (function () {
             });
             this.attendenceSubmittedMessage = "Your attendance for this week is submitted";
         }
-        this.hideAttendanceSubmittedMessage = false;
+        this.loadAttendanceSubmittedMessage = true;
     };
     LoadAttendanceComponent.prototype.getMonday = function () {
         var todaysDateCopy = new Date();

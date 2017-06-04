@@ -12,7 +12,11 @@ var core_1 = require("@angular/core");
 var user_1 = require("./../login/pojo/user");
 var AdminComponent = (function () {
     function AdminComponent() {
+        this.tabName = 'loadAttendance';
     }
+    AdminComponent.prototype.toggleTab = function (tabName) {
+        this.tabName = tabName;
+    };
     AdminComponent.prototype.getWelcomeMessage = function () {
         return "Welcome " + this.user.firstName + " , You are logged in as " + this.user.role;
     };

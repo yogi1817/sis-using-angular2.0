@@ -2,6 +2,9 @@
 <my-about *ngIf="tabName=='about'"></my-about>
 <my-contact *ngIf="tabName=='contact'"></my-contact>
 <my-carrers *ngIf="tabName=='carrers'"></my-carrers>
+<div *ngIf="tabName=='loginForm' && user!=null && user.errorMessageFlag">
+     <h2>{{user.errorMessage}}</h2>
+</div>
 <login-form (loginResult)=setLogin($event) *ngIf="tabName=='loginForm' && showLogin"></login-form>
 <admin-tab [user]="user" *ngIf="tabName=='welcomeAdmin'"></admin-tab>
 <student-tab [user]="user" *ngIf="tabName=='welcomeStudent'"></student-tab>

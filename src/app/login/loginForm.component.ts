@@ -13,6 +13,8 @@ export class LoginFormComponent implements OnInit{
     credentials: any = {};
     submitted = false;
     user: User; 
+    errorMessage: string = null;
+    errorMessageFlag: boolean = false;
 
     @Output() loginResult = new EventEmitter<User>();
     
@@ -31,8 +33,17 @@ export class LoginFormComponent implements OnInit{
                     localStorage.setItem('user', JSON.stringify(this.user));
                     this.loginResult.emit(this.user);
                 } 
-        });
-        console.log("User Data returned "+ this.user);
+        }, error => {
+            this.errorMessageFlag = true;
+            if(error.status == 401)
+                this.errorMessage = "Invalid User ID Password Combination";
+            else
+                this.errorMessage = "There was an error process your request, please try again after some time";
+            
+            this.user = new User(null, null, null, null, null, null, null, null, this.errorMessage, true, null, null, null);
+
+            this.loginResult.emit(this.user);
+    });
     }
 
     showFormControls(form: any) {

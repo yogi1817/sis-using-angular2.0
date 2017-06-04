@@ -3,8 +3,8 @@
 	  			<div class="col-md-3" id="leftCol">	
 					<div class="well vertical-menu"> 
 		              	<ul class="nav nav-stacked" id="sidebar">
-		                  <li><div (click)="toggleTab('loadAttendance')" class="active">Load Attendance</div></li>
-		                  <li><div (click)="toggleTab('loadAssignments')">Load Assigments</div></li>
+		                  <li><div (click)="toggleTab('loadAttendance')" [class.active]="tabName == 'loadAttendance'">Load Attendance</div></li>
+		                  <li><div (click)="toggleTab('loadAssignments')" [class.active]="tabName == 'loadAssignments'">Load Assigments</div></li>
 		                  <li><div (click)="toggleTab('loadMessage')">Load Messages</div></li>
 		                  <li><div (click)="toggleTab('loadAnnouncements')">Load Announcements</div></li>
 		                  <li><div (click)="toggleTab('loadTimeTable')">Load Time Table</div></li>
@@ -21,6 +21,7 @@
 					</span></h2> 
 	      		</div> 
 
-				<load-attendance></load-attendance>
+				<load-attendance *ngIf="tabName=='loadAttendance'"></load-attendance>
+				<load-assignments *ngIf="tabName=='loadAssignments'"></load-assignments>
 	  	</div>
 </div>

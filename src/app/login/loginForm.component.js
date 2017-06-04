@@ -10,11 +10,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var Authentication_Service_1 = require("./../services/Authentication.Service");
+var user_1 = require("./pojo/user");
 var LoginFormComponent = (function () {
     function LoginFormComponent(authenticationService) {
         this.authenticationService = authenticationService;
         this.credentials = {};
         this.submitted = false;
+        this.errorMessage = null;
+        this.errorMessageFlag = false;
         this.loginResult = new core_1.EventEmitter();
     }
     LoginFormComponent.prototype.ngOnInit = function () {
@@ -29,8 +32,15 @@ var LoginFormComponent = (function () {
                 localStorage.setItem('user', JSON.stringify(_this.user));
                 _this.loginResult.emit(_this.user);
             }
+        }, function (error) {
+            _this.errorMessageFlag = true;
+            if (error.status == 401)
+                _this.errorMessage = "Invalid User ID Password Combination";
+            else
+                _this.errorMessage = "There was an error process your request, please try again after some time";
+            _this.user = new user_1.User(null, null, null, null, null, null, null, null, _this.errorMessage, true, null, null, null);
+            _this.loginResult.emit(_this.user);
         });
-        console.log("User Data returned " + this.user);
     };
     LoginFormComponent.prototype.showFormControls = function (form) {
         return form && form.controls['username'].value && form.controls['password'].value;

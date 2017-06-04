@@ -12,6 +12,8 @@ export class User {
         public updateDate: number,
         public userId: string,
         public role: string,
+        public errorMessage: string,
+        public errorMessageFlag: boolean = false,
         public classDetails: ClassDetail[],
         public address: Address[],
         public assignment: Assignment[]

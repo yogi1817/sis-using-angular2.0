@@ -17,6 +17,8 @@ var BodyComponent = (function () {
     BodyComponent.prototype.setLogin = function (user) {
         if (user == null)
             this.showLogin = true;
+        else if (user.errorMessageFlag)
+            this.showLogin = true;
         else
             this.showLogin = false;
         this.user = user;
