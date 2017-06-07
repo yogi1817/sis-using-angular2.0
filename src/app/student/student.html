@@ -3,9 +3,9 @@
 	  			<div class="col-md-3" id="leftCol">	
 					<div class="well vertical-menu"> 
 		              	<ul class="nav nav-stacked" id="sidebar">
-		                  <li><div (click)="toggleTab('readAttendance')" class="active">Attendance</div></li>
-		                  <li><div (click)="toggleTab('readAssignments')">Assigments</div></li>
-		                  <li><div (click)="toggleTab('readMessage')">Messages</div></li>
+		                  <li><div (click)="toggleTab('readAttendance')" [class.active]="tabName == 'readAttendance'">Attendance</div></li>
+		                  <li><div (click)="toggleTab('readAssignments')" [class.active]="tabName == 'readAssignments'">Assigments</div></li>
+						  <li><div (click)="toggleTab('readMessage')">Messages</div></li>
 		                  <li><div (click)="toggleTab('readAnnouncements')">Announcements</div></li>
 		                  <li><div (click)="toggleTab('readTimeTable')">Time Table</div></li>
 		                  <li><div (click)="toggleTab('readReportCard')">Report Card</div></li>
@@ -21,6 +21,7 @@
 					</span></h2> 
 	      		</div> 
 
-				<read-attendance></read-attendance>
+				<read-attendance *ngIf="tabName=='readAttendance'"></read-attendance>
+				<read-assignments *ngIf="tabName=='readAssignments'"></read-assignments>
 	  	</div>
 </div>

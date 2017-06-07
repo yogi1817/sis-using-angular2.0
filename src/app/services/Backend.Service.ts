@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response, RequestOptions } from '@angular/http';
+import { Http, Headers, Response, RequestOptions, ResponseContentType } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Attendance } from './../login/pojo/Attendance';
 import 'rxjs/add/operator/map';
@@ -10,6 +10,9 @@ export class BackendService {
     private getStudentNameUrl = '/sisbe/admin/students?';
     private submitAttendanceUrl = '/sisbe/attendance?';
     private getAttendanceUrl = '/sisbe/attendance?';
+    private getAssignmentListUrl = '/sisbe/assignments/student';
+    private downloadAssignmentUrl = '/sisbe/assignments/student/';
+
 
     constructor(private http: Http) {
     }
@@ -33,8 +36,24 @@ export class BackendService {
                     {headers: headers}).map(this.extractData);
     }
 
+    getAssignmentForStudent(){
+        let headers = this.createAuthorizationHeader();
+        return this.http.get(this.serverUrl+this.getAssignmentListUrl, 
+                    {headers: headers}).map(this.extractData);
+    }
+
+    downloadAssignment(subject: string, assignmentName: string){
+        let headers = this.createAuthorizationHeader();
+        return this.http.get(this.serverUrl+this.downloadAssignmentUrl+subject+"/"+assignmentName,
+                    {headers: headers, responseType: ResponseContentType.Blob}).map(this.extractBlob);
+    }
+
     private extractData(data: Response) {
             return data.json();
+    }
+
+     private extractBlob(data: Response) {
+            return data.blob();
     }
 
     createAuthorizationHeader():  Headers{

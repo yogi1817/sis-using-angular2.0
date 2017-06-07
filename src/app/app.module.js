@@ -12,6 +12,8 @@ var http_1 = require("@angular/http");
 var ng2_charts_1 = require("ng2-charts");
 var ng2_file_upload_1 = require("ng2-file-upload");
 require("./../../node_modules/chart.js/dist/Chart.bundle.min.js");
+var angular2_datatable_1 = require("angular2-datatable");
+var ng2_bs3_modal_1 = require("ng2-bs3-modal/ng2-bs3-modal");
 var app_component_1 = require("./app.component");
 var header_component_1 = require("./header/header.component");
 var footer_component_1 = require("./footer/footer.component");
@@ -26,11 +28,11 @@ var student_component_1 = require("./student/student.component");
 var loadAttendance_component_1 = require("./attendance/loadAttendance/loadAttendance.component");
 var readAttendance_component_1 = require("./attendance/readAttendance/readAttendance.component");
 var loadAssignments_component_1 = require("./assignments/loadAssignments/loadAssignments.component");
+var readAssignments_component_1 = require("./assignments/readAssignment/readAssignments.component");
 var Authentication_Service_1 = require("./services/Authentication.Service");
 var Backend_Service_1 = require("./services/Backend.Service");
 var OrderByPipe_1 = require("./utils/OrderByPipe");
 var pieChart_Component_1 = require("./utils/pieChart/pieChart.Component");
-var ng2_bs3_modal_1 = require("ng2-bs3-modal/ng2-bs3-modal");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -39,11 +41,11 @@ var AppModule = (function () {
 AppModule = __decorate([
     core_1.NgModule({
         imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, http_1.HttpModule, http_1.JsonpModule, ng2_charts_1.ChartsModule,
-            ng2_file_upload_1.FileUploadModule, ng2_bs3_modal_1.Ng2Bs3ModalModule],
+            ng2_file_upload_1.FileUploadModule, ng2_bs3_modal_1.Ng2Bs3ModalModule, angular2_datatable_1.DataTableModule],
         declarations: [app_component_1.AppComponent, header_component_1.HeaderComponent, footer_component_1.FooterComponent, body_component_1.BodyComponent, home_component_1.HomeComponent,
             about_component_1.AboutComponent, carrers_component_1.CarrersComponent, contacts_component_1.ContactComponent, loginForm_component_1.LoginFormComponent, admin_component_1.AdminComponent,
             loadAttendance_component_1.LoadAttendanceComponent, OrderByPipe_1.OrderByPipe, student_component_1.StudentComponent, readAttendance_component_1.ReadAttendanceComponent,
-            pieChart_Component_1.PieChartComponent, loadAssignments_component_1.LoadAssignmentsComponent],
+            pieChart_Component_1.PieChartComponent, loadAssignments_component_1.LoadAssignmentsComponent, readAssignments_component_1.ReadAssignmentsComponent],
         bootstrap: [app_component_1.AppComponent],
         providers: [Authentication_Service_1.AuthenticationService, Backend_Service_1.BackendService]
     })

@@ -1,0 +1,47 @@
+<div class="container-fluid">
+    <div class="col-xs-12 col-md-10 col-lg-8">
+        <div class="row">
+            <h2 class="col-xs-6">Assignment List</h2>
+        </div>
+        <div class="panel panel-default">
+            <table class="table table-striped" [mfData]="assignmentList" #mf="mfDataTable">
+                <thead>
+                <tr>
+                    <th style="width: 15%">
+                        <mfDefaultSorter by="subject">Subject</mfDefaultSorter>
+                    </th>
+                    <th style="width: 25%">
+                        <mfDefaultSorter by="assignmentName">Assignment Name</mfDefaultSorter>
+                    </th>
+                    <th style="width: 13%">
+                        <mfDefaultSorter by="dateCreated">Upload Date</mfDefaultSorter>
+                    </th>
+                    <th style="width: 12%">
+                        <mfDefaultSorter [by]="completionDate">End Date</mfDefaultSorter>
+                    </th>
+                    <th style="width: 10%">
+                        <mfDefaultSorter [by]="completedFlag">Completed</mfDefaultSorter>
+                    </th>
+                    <th style="width: 15%">
+                        <mfDefaultSorter>Upload</mfDefaultSorter>
+                    </th>
+                     <th style="width: 15%">
+                        <mfDefaultSorter>Download</mfDefaultSorter>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of mf.data">
+                    <td>{{item.subject | uppercase}}</td>
+                    <td>{{item.assignmentName}}</td>
+                    <td class="text-right">{{item.dateCreated | date:'yyyy-MM-dd'}}</td>
+                    <td>{{item.completionDate | date:'yyyy-MM-dd'}}</td>
+                    <td>{{item.completedFlag}}</td>
+                    <td (click)="downloadAssignment(item)">Click to Download</td>
+                    <td (click)="uploadAssignment()">Click to Upload</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

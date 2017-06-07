@@ -15,7 +15,7 @@ var LoadAssignmentsComponent = (function () {
     function LoadAssignmentsComponent(backendService, cdr) {
         this.backendService = backendService;
         this.cdr = cdr;
-        this.url = 'http://localhost:8080/sisbe/assignment';
+        this.url = 'http://localhost:8080/sisbe/assignments/admin';
         this.sections = [];
         this.loadSectionFlag = false;
         this.subjects = [];

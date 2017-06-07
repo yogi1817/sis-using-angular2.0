@@ -12,7 +12,11 @@ var core_1 = require("@angular/core");
 var user_1 = require("./../login/pojo/user");
 var StudentComponent = (function () {
     function StudentComponent() {
+        this.tabName = 'readAttendance';
     }
+    StudentComponent.prototype.toggleTab = function (tabName) {
+        this.tabName = tabName;
+    };
     StudentComponent.prototype.getWelcomeMessage = function () {
         return "Welcome " + this.user.firstName + " , You are logged in as " + this.user.role;
     };

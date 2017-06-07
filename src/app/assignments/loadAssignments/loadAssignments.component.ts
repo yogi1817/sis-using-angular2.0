@@ -12,7 +12,7 @@ import { FileUploader } from 'ng2-file-upload';
 
 export class LoadAssignmentsComponent implements OnInit{
     
-    url: string= 'http://localhost:8080/sisbe/assignment';
+    url: string= 'http://localhost:8080/sisbe/assignments/admin';
     user: User;
     selectedClassNo: number;
     sections: Array<String> = []; 

@@ -52,6 +52,8 @@
       "ng2-charts": "node_modules/ng2-charts",
       "ng2-file-upload": "node_modules/ng2-file-upload",
       'ng2-bs3-modal': 'node_modules/ng2-bs3-modal',
+      'angular2-datatable': 'node_modules/angular2-datatable',
+      'lodash': 'node_modules/lodash',
       // other libraries
       'rxjs':                      'npm:rxjs@5.0.1',
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
@@ -84,6 +86,14 @@
       "ng2-bs3-modal": {
         main: "ng2-bs3-modal.js", 
         defaultExtension: "js" 
+      },
+      'angular2-datatable': {
+        main: 'index.js',
+        defaultExtension: 'js'
+      },
+      'lodash': {
+        main: 'lodash.js',
+        defaultExtension: 'js'
       }
     }
   });
