@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions, ResponseContentType } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Attendance } from './../login/pojo/Attendance';
-import 'rxjs/add/operator/map';
  
 @Injectable()
 export class BackendService {
@@ -25,9 +24,7 @@ export class BackendService {
         return this.http.get(this.serverUrl+this.getStudentNameUrl+
                         "classNo="+classNo+"&section="+section+"&subject="+subject, 
                         {headers: this.headers})
-                        .map(this.extractDataWithHeader)
-                        .publishReplay(1)
-                        .refCount;
+                        .map(this.extractDataWithHeader);
     }
 
     submitAttendance(attendanceObject: Array<Attendance>, subject: string){

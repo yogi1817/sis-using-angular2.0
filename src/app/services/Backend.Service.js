@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
-require("rxjs/add/operator/map");
 var BackendService = (function () {
     function BackendService(http) {
         this.http = http;
@@ -29,9 +28,7 @@ var BackendService = (function () {
         this.headers.append('If-None-Match', this.ETag);
         return this.http.get(this.serverUrl + this.getStudentNameUrl +
             "classNo=" + classNo + "&section=" + section + "&subject=" + subject, { headers: this.headers })
-            .map(this.extractDataWithHeader)
-            .publishReplay(1)
-            .refCount;
+            .map(this.extractDataWithHeader);
     };
     BackendService.prototype.submitAttendance = function (attendanceObject, subject) {
         var headers = this.createAuthorizationHeader();
