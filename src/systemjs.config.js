@@ -54,6 +54,7 @@
       'ng2-bs3-modal': 'node_modules/ng2-bs3-modal',
       'angular2-datatable': 'node_modules/angular2-datatable',
       'lodash': 'node_modules/lodash',
+      'chart.js': 'node_modules/chart.js/dist',
       // other libraries
       'rxjs':                      'npm:rxjs@5.0.1',
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
@@ -93,6 +94,10 @@
       },
       'lodash': {
         main: 'lodash.js',
+        defaultExtension: 'js'
+      },
+      'chart.js': {
+        main: 'Chart.bundle.min.js',
         defaultExtension: 'js'
       }
     }

@@ -17,8 +17,11 @@ var StudentComponent = (function () {
     StudentComponent.prototype.toggleTab = function (tabName) {
         this.tabName = tabName;
     };
-    StudentComponent.prototype.getWelcomeMessage = function () {
-        return "Welcome " + this.user.firstName + " , You are logged in as " + this.user.role;
+    StudentComponent.prototype.getUserName = function () {
+        return this.user.firstName;
+    };
+    StudentComponent.prototype.getRole = function () {
+        return this.user.role;
     };
     return StudentComponent;
 }());

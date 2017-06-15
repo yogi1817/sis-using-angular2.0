@@ -1,5 +1,4 @@
-<h3>Please choose subject to see attendance or you can choose ALL</h3>
-<h3 *ngIf="showPieChart">{{attendenceReceivedMessage}}</h3>	
+<h4>Please choose subject to see attendance or you can choose ALL</h4>
 <table class="table1">
     <tr>
         <th>
@@ -14,11 +13,14 @@
                 <option *ngFor="let attendance of attendanceList">{{attendance.monthName}}</option>
             </select>
         </th>
-        <th *ngIf="showPieChart">
-            <pie-chart [pieChartData]="pieChartData"></pie-chart>
-        </th>
     </tr>
 </table>
+
+<h4 *ngIf="showPieChart">{{attendenceReceivedMessage}}</h4>	
+
+<div *ngIf="showPieChart">
+    <pie-chart [pieChartData]="pieChartData"></pie-chart>
+</div>
 
 <div *ngIf="showPieChart">
     <h3>Please choose subject to see attendance or you can choose ALL</h3>

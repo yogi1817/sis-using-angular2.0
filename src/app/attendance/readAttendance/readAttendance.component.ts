@@ -1,4 +1,4 @@
-import { Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectorRef, ChangeDetectionStrategy} from '@angular/core';
 import { BackendService } from './../../services/Backend.Service';
 import { User } from './../../login/pojo/user';
 import { Attendance } from './../../login/pojo/Attendance';
@@ -6,11 +6,12 @@ import { Attendance } from './../../login/pojo/Attendance';
 @Component({
     selector: 'read-attendance',
     templateUrl: './readAttendance.html',
-    styleUrls: ['./readAttendance.css', './../../../css/style.css', './../../../css/bootstrap.min.css']
+    styleUrls: ['./readAttendance.css', './../../../css/style.css', './../../../css/bootstrap.min.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class ReadAttendanceComponent implements OnInit{
-    constructor(private backendService: BackendService){
+    constructor(private backendService: BackendService, private cdr:ChangeDetectorRef){
     }    
 
     user: User;
@@ -34,6 +35,7 @@ export class ReadAttendanceComponent implements OnInit{
                                 this.attendanceList = [];
                                 this.attendanceList.push(blankMonth);
                                 this.attendanceList.push(...userData);
+                                this.cdr.detectChanges();
                             });
     }
 
@@ -46,8 +48,9 @@ export class ReadAttendanceComponent implements OnInit{
                 this.pieChartData.push(entry.percentageAbsent);
             }
         }    
-        this.attendenceReceivedMessage = "Your attendance pie for the selected month is";
+        this.attendenceReceivedMessage = "Your attendance pie for the selected month is below";
         this.showPieChart = true;
+        this.showAttendanceFlag = false;
     }
 
     showAttendance(){

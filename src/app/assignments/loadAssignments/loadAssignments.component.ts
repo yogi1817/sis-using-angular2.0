@@ -26,6 +26,8 @@ export class LoadAssignmentsComponent implements OnInit{
     completionDate: Date;
     failedUploadFlag: boolean = false;
     failureMessage: string;
+    successMessage:string;
+    successMessageFlag: boolean = false;
 
     headers: Array<{name: string, value: string}>;
     additionalParameter: Array<{[key: string]: any}>;
@@ -46,6 +48,11 @@ export class LoadAssignmentsComponent implements OnInit{
                 this.sections.push(element.section);
             }
         });
+        this.loadSubject = false;
+        this.loadCompletionDateFlag = false;
+        this.fileUploadFlag = false;
+        this.failedUploadFlag = false;
+        this.successMessageFlag = false;
         this.selectedClassNo = $event;
     }
 
@@ -57,17 +64,26 @@ export class LoadAssignmentsComponent implements OnInit{
                 this.subjects.push(...element.subject);
             }
         });
+        this.loadCompletionDateFlag = false;
+        this.fileUploadFlag = false;
+        this.failedUploadFlag = false;
+        this.successMessageFlag = false;
         this.selectedSection = $event;
     }
 
     loadCompletionDate($event: string){
         this.selectedSubject = $event;
         this.loadCompletionDateFlag = true;
+        this.fileUploadFlag = false;
+        this.failedUploadFlag = false;
+        this.successMessageFlag = false;
     }
 
     loadFileUploadOptions($event: Date){
         this.completionDate = $event;
         this.fileUploadFlag = true;
+        this.failedUploadFlag = false;
+        this.successMessageFlag = false;
 
         this.headers = this.backendService.createAuthorizationHeaderForFileUpload();
 
@@ -77,9 +93,16 @@ export class LoadAssignmentsComponent implements OnInit{
         });
 
         this.uploader.onErrorItem = (item:any, response:any, status:any, headers:any) => {
-            console.log(status);
             this.failureMessage = "There was some error in uploading doc, please contact admin";
             this.failedUploadFlag=true;
+            this.successMessageFlag = false;
+            this.cdr.detectChanges();
+        };
+
+        this.uploader.onSuccessItem = (item:any, response:any, status:any, headers:any) => {
+            this.successMessage = "Files were uploaded successfully";
+            this.successMessageFlag=true;
+            this.failedUploadFlag = false;
             this.cdr.detectChanges();
         };
 
@@ -88,6 +111,15 @@ export class LoadAssignmentsComponent implements OnInit{
                 form.append("section", this.selectedSection);
                 form.append("subject", this.selectedSubject);
                 form.append("completionDate", this.completionDate);
-            };
+        };
+    }
+
+     reset(){
+        this.loadSectionFlag = false;
+        this.loadSubject = false;
+        this.loadCompletionDateFlag = false;
+        this.fileUploadFlag = false;
+        this.failedUploadFlag = false;
+        this.successMessageFlag = false;
     }
 }

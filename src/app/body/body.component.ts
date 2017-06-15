@@ -30,8 +30,10 @@ export class BodyComponent {
         this.user = user;
     }
 
-    logout(){
+    setLoginAndTabName(){
         this.showLogin = true;
+        this.tabName="loginForm";
+        this.user = null;
         this.cdr.detectChanges();
     }
 }

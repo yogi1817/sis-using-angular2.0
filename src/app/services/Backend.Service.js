@@ -20,20 +20,28 @@ var BackendService = (function () {
         this.getAttendanceUrl = '/sisbe/attendance?';
         this.getAssignmentListUrl = '/sisbe/assignments/student';
         this.downloadAssignmentUrl = '/sisbe/assignments/student/';
+        this.headers = new http_1.Headers();
+        //for now hardcoding to test etag
+        this.ETag = "\"1601\"";
     }
     BackendService.prototype.getStudentNamesForAdmin = function (classNo, section, subject) {
-        var headers = this.createAuthorizationHeader();
+        this.headers = this.createAuthorizationHeader();
+        this.headers.append('If-None-Match', this.ETag);
         return this.http.get(this.serverUrl + this.getStudentNameUrl +
-            "classNo=" + classNo + "&section=" + section + "&subject=" + subject, { headers: headers })
-            .map(this.extractData);
+            "classNo=" + classNo + "&section=" + section + "&subject=" + subject, { headers: this.headers })
+            .map(this.extractDataWithHeader)
+            .publishReplay(1)
+            .refCount;
     };
     BackendService.prototype.submitAttendance = function (attendanceObject, subject) {
         var headers = this.createAuthorizationHeader();
-        return this.http.post(this.serverUrl + this.submitAttendanceUrl + "subjectName=" + subject, attendanceObject, { headers: headers }).map(this.extractData);
+        return this.http.post(this.serverUrl + this.submitAttendanceUrl +
+            "subjectName=" + subject, attendanceObject, { headers: headers }).map(this.extractData);
     };
     BackendService.prototype.getAttendance = function (subject) {
         var headers = this.createAuthorizationHeader();
-        return this.http.get(this.serverUrl + this.getAttendanceUrl + "subjectName=" + subject, { headers: headers }).map(this.extractData);
+        return this.http.get(this.serverUrl + this.getAttendanceUrl + "subjectName="
+            + subject, { headers: headers }).map(this.extractData);
     };
     BackendService.prototype.getAssignmentForStudent = function () {
         var headers = this.createAuthorizationHeader();
@@ -41,9 +49,15 @@ var BackendService = (function () {
     };
     BackendService.prototype.downloadAssignment = function (subject, assignmentName) {
         var headers = this.createAuthorizationHeader();
-        return this.http.get(this.serverUrl + this.downloadAssignmentUrl + subject + "/" + assignmentName, { headers: headers, responseType: http_1.ResponseContentType.Blob }).map(this.extractBlob);
+        return this.http.get(this.serverUrl + this.downloadAssignmentUrl + subject + "/"
+            + assignmentName, { headers: headers, responseType: http_1.ResponseContentType.Blob })
+            .map(this.extractBlob);
     };
     BackendService.prototype.extractData = function (data) {
+        return data.json();
+    };
+    BackendService.prototype.extractDataWithHeader = function (data) {
+        //this.ETag = data.headers.get('ETag');
         return data.json();
     };
     BackendService.prototype.extractBlob = function (data) {

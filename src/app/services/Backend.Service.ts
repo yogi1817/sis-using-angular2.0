@@ -12,27 +12,35 @@ export class BackendService {
     private getAttendanceUrl = '/sisbe/attendance?';
     private getAssignmentListUrl = '/sisbe/assignments/student';
     private downloadAssignmentUrl = '/sisbe/assignments/student/';
-
+    private headers = new Headers();
+    //for now hardcoding to test etag
+    ETag: string = "\"1601\"";
 
     constructor(private http: Http) {
     }
 
     getStudentNamesForAdmin(classNo: number, section: string, subject: string){
-        let headers = this.createAuthorizationHeader();
+        this.headers = this.createAuthorizationHeader();
+        this.headers.append('If-None-Match', this.ETag);
         return this.http.get(this.serverUrl+this.getStudentNameUrl+
-                        "classNo="+classNo+"&section="+section+"&subject="+subject, {headers: headers})
-                        .map(this.extractData);
+                        "classNo="+classNo+"&section="+section+"&subject="+subject, 
+                        {headers: this.headers})
+                        .map(this.extractDataWithHeader)
+                        .publishReplay(1)
+                        .refCount;
     }
 
     submitAttendance(attendanceObject: Array<Attendance>, subject: string){
         let headers = this.createAuthorizationHeader();
-        return this.http.post(this.serverUrl+this.submitAttendanceUrl+"subjectName="+subject, 
+        return this.http.post(this.serverUrl+this.submitAttendanceUrl+
+                    "subjectName="+subject, 
                     attendanceObject, {headers: headers}).map(this.extractData);
     }
 
     getAttendance(subject: string){
         let headers = this.createAuthorizationHeader();
-        return this.http.get(this.serverUrl+this.getAttendanceUrl+"subjectName="+subject, 
+        return this.http.get(this.serverUrl+this.getAttendanceUrl+"subjectName="
+                    +subject, 
                     {headers: headers}).map(this.extractData);
     }
 
@@ -44,12 +52,19 @@ export class BackendService {
 
     downloadAssignment(subject: string, assignmentName: string){
         let headers = this.createAuthorizationHeader();
-        return this.http.get(this.serverUrl+this.downloadAssignmentUrl+subject+"/"+assignmentName,
-                    {headers: headers, responseType: ResponseContentType.Blob}).map(this.extractBlob);
+        return this.http.get(this.serverUrl+this.downloadAssignmentUrl+subject+"/"
+                    +assignmentName,
+                    {headers: headers, responseType: ResponseContentType.Blob})
+                    .map(this.extractBlob);
     }
 
     private extractData(data: Response) {
             return data.json();
+    }
+
+    private extractDataWithHeader(data: Response) {
+        //this.ETag = data.headers.get('ETag');
+        return data.json();
     }
 
      private extractBlob(data: Response) {

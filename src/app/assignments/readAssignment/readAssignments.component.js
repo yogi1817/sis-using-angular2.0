@@ -10,10 +10,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var Backend_Service_1 = require("./../../services/Backend.Service");
+var ng2_file_upload_1 = require("ng2-file-upload");
 var ReadAssignmentsComponent = (function () {
     function ReadAssignmentsComponent(backendService, cdr) {
         this.backendService = backendService;
         this.cdr = cdr;
+        this.url = 'http://localhost:8080/sisbe/assignments/student';
+        this.failedUploadFlag = false;
+        this.successMessageFlag = false;
+        this.showUploadButton = false;
+        this.hasBaseDropZoneOver = false;
+        this.options = {
+            autoUpload: false,
+            isHTML5: true,
+            filters: [],
+            removeAfterUpload: false,
+            disableMultipart: false
+        };
     }
     ReadAssignmentsComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -22,9 +35,13 @@ var ReadAssignmentsComponent = (function () {
             _this.assignmentList = classData;
             _this.cdr.detectChanges();
         });
+        this.headers = this.backendService.createAuthorizationHeaderForFileUpload();
+        this.uploader = new ng2_file_upload_1.FileUploader({
+            headers: this.headers,
+            url: this.url
+        });
     };
     ReadAssignmentsComponent.prototype.downloadAssignment = function (assignment) {
-        console.log(assignment);
         var a = document.createElement("a");
         document.body.appendChild(a);
         this.backendService.downloadAssignment(assignment.subject, assignment.assignmentName)
@@ -36,8 +53,29 @@ var ReadAssignmentsComponent = (function () {
             window.URL.revokeObjectURL(fileURL);
         });
     };
-    ReadAssignmentsComponent.prototype.uploadAssignment = function () {
-        console.log("test");
+    ReadAssignmentsComponent.prototype.uploadAssignment = function (assignment) {
+        var _this = this;
+        this.showUploadButton = true;
+        this.uploader.onErrorItem = function (item, response, status, headers) {
+            _this.failureMessage = "There was some error in uploading doc, please contact admin";
+            _this.failedUploadFlag = true;
+            _this.successMessageFlag = false;
+            _this.cdr.detectChanges();
+        };
+        this.uploader.onSuccessItem = function (item, response, status, headers) {
+            _this.successMessage = "Files were uploaded successfully";
+            _this.successMessageFlag = true;
+            _this.failedUploadFlag = false;
+            _this.cdr.detectChanges();
+        };
+        this.uploader.onBuildItemForm = function (item, form) {
+            form.append("class", _this.user.classDetails[0].classNo);
+            form.append("section", _this.user.classDetails[0].section);
+            form.append("subject", assignment.subject);
+        };
+    };
+    ReadAssignmentsComponent.prototype.fileOverBase = function (e) {
+        this.hasBaseDropZoneOver = e;
     };
     return ReadAssignmentsComponent;
 }());

@@ -23,6 +23,7 @@ var LoadAssignmentsComponent = (function () {
         this.fileUploadFlag = false;
         this.loadCompletionDateFlag = false;
         this.failedUploadFlag = false;
+        this.successMessageFlag = false;
     }
     LoadAssignmentsComponent.prototype.ngOnInit = function () {
         this.user = JSON.parse(localStorage.getItem('user'));
@@ -36,6 +37,11 @@ var LoadAssignmentsComponent = (function () {
                 _this.sections.push(element.section);
             }
         });
+        this.loadSubject = false;
+        this.loadCompletionDateFlag = false;
+        this.fileUploadFlag = false;
+        this.failedUploadFlag = false;
+        this.successMessageFlag = false;
         this.selectedClassNo = $event;
     };
     LoadAssignmentsComponent.prototype.loadSubjects = function ($event) {
@@ -48,25 +54,40 @@ var LoadAssignmentsComponent = (function () {
             }
             var _a;
         });
+        this.loadCompletionDateFlag = false;
+        this.fileUploadFlag = false;
+        this.failedUploadFlag = false;
+        this.successMessageFlag = false;
         this.selectedSection = $event;
     };
     LoadAssignmentsComponent.prototype.loadCompletionDate = function ($event) {
         this.selectedSubject = $event;
         this.loadCompletionDateFlag = true;
+        this.fileUploadFlag = false;
+        this.failedUploadFlag = false;
+        this.successMessageFlag = false;
     };
     LoadAssignmentsComponent.prototype.loadFileUploadOptions = function ($event) {
         var _this = this;
         this.completionDate = $event;
         this.fileUploadFlag = true;
+        this.failedUploadFlag = false;
+        this.successMessageFlag = false;
         this.headers = this.backendService.createAuthorizationHeaderForFileUpload();
         this.uploader = new ng2_file_upload_1.FileUploader({
             headers: this.headers,
             url: this.url
         });
         this.uploader.onErrorItem = function (item, response, status, headers) {
-            console.log(status);
             _this.failureMessage = "There was some error in uploading doc, please contact admin";
             _this.failedUploadFlag = true;
+            _this.successMessageFlag = false;
+            _this.cdr.detectChanges();
+        };
+        this.uploader.onSuccessItem = function (item, response, status, headers) {
+            _this.successMessage = "Files were uploaded successfully";
+            _this.successMessageFlag = true;
+            _this.failedUploadFlag = false;
             _this.cdr.detectChanges();
         };
         this.uploader.onBuildItemForm = function (item, form) {
@@ -75,6 +96,14 @@ var LoadAssignmentsComponent = (function () {
             form.append("subject", _this.selectedSubject);
             form.append("completionDate", _this.completionDate);
         };
+    };
+    LoadAssignmentsComponent.prototype.reset = function () {
+        this.loadSectionFlag = false;
+        this.loadSubject = false;
+        this.loadCompletionDateFlag = false;
+        this.fileUploadFlag = false;
+        this.failedUploadFlag = false;
+        this.successMessageFlag = false;
     };
     return LoadAssignmentsComponent;
 }());

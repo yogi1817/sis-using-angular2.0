@@ -17,8 +17,11 @@ var AdminComponent = (function () {
     AdminComponent.prototype.toggleTab = function (tabName) {
         this.tabName = tabName;
     };
-    AdminComponent.prototype.getWelcomeMessage = function () {
-        return "Welcome " + this.user.firstName + " , You are logged in as " + this.user.role;
+    AdminComponent.prototype.getUserName = function () {
+        return this.user.firstName;
+    };
+    AdminComponent.prototype.getRole = function () {
+        return this.user.role;
     };
     return AdminComponent;
 }());

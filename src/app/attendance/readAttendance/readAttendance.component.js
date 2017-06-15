@@ -12,8 +12,9 @@ var core_1 = require("@angular/core");
 var Backend_Service_1 = require("./../../services/Backend.Service");
 var Attendance_1 = require("./../../login/pojo/Attendance");
 var ReadAttendanceComponent = (function () {
-    function ReadAttendanceComponent(backendService) {
+    function ReadAttendanceComponent(backendService, cdr) {
         this.backendService = backendService;
+        this.cdr = cdr;
         this.showPieChart = false;
         this.attendanceList = [];
         this.pieChartData = [];
@@ -32,6 +33,7 @@ var ReadAttendanceComponent = (function () {
             _this.attendanceList = [];
             _this.attendanceList.push(blankMonth);
             (_a = _this.attendanceList).push.apply(_a, userData);
+            _this.cdr.detectChanges();
             var _a;
         });
     };
@@ -45,8 +47,9 @@ var ReadAttendanceComponent = (function () {
                 this.pieChartData.push(entry.percentageAbsent);
             }
         }
-        this.attendenceReceivedMessage = "Your attendance pie for the selected month is";
+        this.attendenceReceivedMessage = "Your attendance pie for the selected month is below";
         this.showPieChart = true;
+        this.showAttendanceFlag = false;
     };
     ReadAttendanceComponent.prototype.showAttendance = function () {
         this.showAttendanceFlag = true;
@@ -63,9 +66,10 @@ ReadAttendanceComponent = __decorate([
     core_1.Component({
         selector: 'read-attendance',
         templateUrl: './readAttendance.html',
-        styleUrls: ['./readAttendance.css', './../../../css/style.css', './../../../css/bootstrap.min.css']
+        styleUrls: ['./readAttendance.css', './../../../css/style.css', './../../../css/bootstrap.min.css'],
+        changeDetection: core_1.ChangeDetectionStrategy.OnPush
     }),
-    __metadata("design:paramtypes", [Backend_Service_1.BackendService])
+    __metadata("design:paramtypes", [Backend_Service_1.BackendService, core_1.ChangeDetectorRef])
 ], ReadAttendanceComponent);
 exports.ReadAttendanceComponent = ReadAttendanceComponent;
 //# sourceMappingURL=readAttendance.component.js.map

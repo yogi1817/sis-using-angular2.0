@@ -1,43 +1,38 @@
 <table class="table1">
     <tr>
-        <th>
-            Select Class
+        <th>Select Class
             <select [ngModel]="selectedClass" (ngModelChange)="loadSection($event)">
                 <option *ngFor="let class of user.classDetails | orderby: class">{{class.classNo}}</option>
             </select>
         </th>
-        <th *ngIf="loadSectionFlag">
-            Select Section
+        <th *ngIf="loadSectionFlag">Select Section
             <select [ngModel]="selectedSection" (ngModelChange)="loadSubjects($event)">
                 <option *ngFor="let section of sections">{{section}}</option>
             </select>
         </th>
-        <th *ngIf="loadSubject">
-            Select Subject
+        <th *ngIf="loadSubject">Select Subject
             <select [ngModel]="selectedSubject" (ngModelChange)="loadCompletionDate($event)">
                 <option *ngFor="let subject of subjects">{{subject}}</option>
             </select>
         </th>
-        <th *ngIf="loadCompletionDateFlag">
-            Select Completion Date
+        <th *ngIf="loadCompletionDateFlag">Select Completion Date
             <input type="date" [ngModel]="completionDate | date:'yyyy-MM-dd'" name="completionDate" (ngModelChange)="loadFileUploadOptions($event)">
         </th>
     </tr>
-<table>
+</table>
 
 <div *ngIf="fileUploadFlag && !failedUploadFlag">
-    <h3>Select files</h3>
-    Upload Multiple File Here
-    <input type="file" ng2FileSelect [uploader]="uploader" multiple/><br/>
+    <h3 class="lessTopSpace">Select files</h3>
+    Upload Single File Here
+    <input type="file" ng2FileSelect [uploader]="uploader"/><br/>
 
-    Upload Single File here
-    <input type="file" ng2FileSelect [uploader]="uploader" />
+    <!--Upload Multiple File Here
+    <input type="file" ng2FileSelect [uploader]="uploader" multiple/><br/>-->
     
-    <div class="col-md-9" style="margin-bottom: 40px">
-            <h3>Upload queue</h3>
+    <div class="col-md-9" style="margin-bottom: 20px">
             <p>Queue length: {{ uploader?.queue?.length }}</p>
 
-            <table class="table">
+            <table class="tableLocal">
                 <thead>
                 <tr>
                     <th width=600px>Name</th>
@@ -80,27 +75,35 @@
             </table>
 
             <div>
-                <div>
+                <!--<div>
                     Queue progress:
                     <div class="progress">
                         <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
                     </div>
-                </div>
+                </div>-->
                 <button type="button" class="btn btn-success btn-s"
                         (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
                 Upload all
                 </button>
-                <button type="button" class="btn btn-warning btn-s"
+
+                <button type="button" class="btn btn-reset btn-s" (click)="reset()">
+                Reset
+                </button>
+                <!--<button type="button" class="btn btn-warning btn-s"
                         (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
-                Cancel all
+                <span class="glyphicon glyphicon-ban-circle"></span>Cancel all
                 </button>
                 <button type="button" class="btn btn-danger btn-s"
                         (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
-                Remove all
-                </button>
+                <span class="glyphicon glyphicon-trash"></span>Remove all
+                </button>-->
             </div>
         </div>
 </div>
 <div *ngIf="failedUploadFlag">
     <h4>{{failureMessage}}</h4>
+</div>
+
+<div *ngIf="successMessageFlag">
+    <h4>{{successMessage}}</h4>
 </div>

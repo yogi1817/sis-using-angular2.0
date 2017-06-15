@@ -4,29 +4,29 @@
             <h2 class="col-xs-6">Assignment List</h2>
         </div>
         <div class="panel panel-default">
-            <table class="table table-striped" [mfData]="assignmentList" #mf="mfDataTable">
+            <table class="table table-striped" [mfData]="assignmentList" #mf="mfDataTable" style="width: 914px;">
                 <thead>
                 <tr>
-                    <th style="width: 15%">
+                    <th style="width: 10%">
                         <mfDefaultSorter by="subject">Subject</mfDefaultSorter>
                     </th>
                     <th style="width: 25%">
                         <mfDefaultSorter by="assignmentName">Assignment Name</mfDefaultSorter>
                     </th>
-                    <th style="width: 13%">
+                    <th style="width: 10%">
                         <mfDefaultSorter by="dateCreated">Upload Date</mfDefaultSorter>
                     </th>
-                    <th style="width: 12%">
+                    <th style="width: 10%">
                         <mfDefaultSorter [by]="completionDate">End Date</mfDefaultSorter>
                     </th>
                     <th style="width: 10%">
                         <mfDefaultSorter [by]="completedFlag">Completed</mfDefaultSorter>
                     </th>
-                    <th style="width: 15%">
-                        <mfDefaultSorter>Upload</mfDefaultSorter>
-                    </th>
-                     <th style="width: 15%">
+                    <th style="width: 10%">
                         <mfDefaultSorter>Download</mfDefaultSorter>
+                    </th>
+                     <th style="width: 25%">
+                        <mfDefaultSorter>Upload</mfDefaultSorter>
                     </th>
                 </tr>
                 </thead>
@@ -38,10 +38,53 @@
                     <td>{{item.completionDate | date:'yyyy-MM-dd'}}</td>
                     <td>{{item.completedFlag}}</td>
                     <td (click)="downloadAssignment(item)">Click to Download</td>
-                    <td (click)="uploadAssignment()">Click to Upload</td>
+                    <td (click)="uploadAssignment(item)">
+                        <div ng2FileDrop
+                            [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
+                            (fileOver)="fileOverBase($event)"
+                            [uploader]="uploader"
+                            class="well my-drop-zone">
+                            Drop to Upload Assignment
+                        </div>
+                    </td>
                 </tr>
                 </tbody>
             </table>
         </div>
     </div>
+</div>
+
+<div class="col-md-9" style="margin-bottom: 20px"*ngIf="showUploadButton" >
+    <p>Queue length: {{ uploader?.queue?.length }}</p>
+
+    <table class="tableLocal">
+        <thead>
+        <tr>
+            <th width=600px>Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of uploader.queue">
+            <td><strong>{{ item?.file?.name }}</strong></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div>
+        <button type="button" class="btn btn-success btn-s"
+                (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+        Upload all
+        </button>
+
+        <button type="button" class="btn btn-reset btn-s" (click)="reset()">
+        Reset
+        </button>
+    </div>
+</div>
+<div *ngIf="failedUploadFlag">
+    <h4>{{failureMessage}}</h4>
+</div>
+
+<div *ngIf="successMessageFlag">
+    <h4>{{successMessage}}</h4>
 </div>

@@ -15,10 +15,11 @@
 	      		</div>  
 	      		
 	      		<div>
-	              	<h2><span>
-						{{getWelcomeMessage()}}
+	              	<h4><span>
+						Welcome <i><u><b>{{getUserName()}}</b></u></i> You are logged in as
+						<i><u><b>{{getRole()}}</b></u></i>
 	              		You can choose any option on the left side to perform different function
-					</span></h2> 
+					</span></h4> 
 	      		</div> 
 
 				<load-attendance *ngIf="tabName=='loadAttendance'"></load-attendance>

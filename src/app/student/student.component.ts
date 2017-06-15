@@ -18,7 +18,11 @@ export class StudentComponent {
         this.tabName = tabName;
     }   
 
-    getWelcomeMessage(){
-        return "Welcome "+this.user.firstName+" , You are logged in as "+this.user.role;
+    getUserName(){
+        return this.user.firstName;
+    }
+
+    getRole(){
+        return this.user.role;
     }
 }

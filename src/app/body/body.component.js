@@ -23,8 +23,10 @@ var BodyComponent = (function () {
             this.showLogin = false;
         this.user = user;
     };
-    BodyComponent.prototype.logout = function () {
+    BodyComponent.prototype.setLoginAndTabName = function () {
         this.showLogin = true;
+        this.tabName = "loginForm";
+        this.user = null;
         this.cdr.detectChanges();
     };
     return BodyComponent;

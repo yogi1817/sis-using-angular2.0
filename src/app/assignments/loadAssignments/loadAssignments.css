@@ -1,3 +1,26 @@
 .my-drop-zone { border: dotted 3px lightgray; }
     .nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
     .another-file-over-class { border: dotted 3px green; }
+
+table.tableLocal{
+    width: 400px;
+}
+
+div h3{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+div h3.lessTopSpace{
+    margin-top: -30px;
+}
+
+div div h3{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+div div p{
+    padding: 0 0 0px 0;
+    line-height: 0.0em;
+}

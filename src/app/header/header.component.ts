@@ -1,4 +1,5 @@
 import { Component, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import { BodyComponent } from '../body/body.component';
 import { User } from './../login/pojo/user';
 
 @Component({
@@ -11,7 +12,9 @@ import { User } from './../login/pojo/user';
 export class HeaderComponent {
     tabName: string = 'home';
     user: User;
-    constructor(private cdr:ChangeDetectorRef){} 
+    body: BodyComponent;
+    constructor(private cdr:ChangeDetectorRef){
+    } 
 
     toggleTab(tabName: string){
         this.tabName = tabName;

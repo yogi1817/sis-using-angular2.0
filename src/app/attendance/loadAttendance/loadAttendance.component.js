@@ -37,6 +37,9 @@ var LoadAttendanceComponent = (function () {
                 _this.sections.push(element.section);
             }
         });
+        this.loadSubject = false;
+        this.loadStudentRow = false;
+        this.loadAttendanceSubmittedMessage = false;
         this.selectedClassNo = $event;
     };
     LoadAttendanceComponent.prototype.loadSubjects = function ($event) {
@@ -49,6 +52,8 @@ var LoadAttendanceComponent = (function () {
             }
             var _a;
         });
+        this.loadStudentRow = false;
+        this.loadAttendanceSubmittedMessage = false;
         this.selectedSection = $event;
     };
     LoadAttendanceComponent.prototype.loadStudents = function ($event) {
@@ -57,6 +62,7 @@ var LoadAttendanceComponent = (function () {
         this.backendService.getStudentNamesForAdmin(this.selectedClassNo, this.selectedSection, $event).subscribe(function (classData) {
             _this.students = classData;
             _this.loadStudentRow = true;
+            _this.loadAttendanceSubmittedMessage = false;
             _this.cdr.detectChanges();
         });
     };
@@ -66,9 +72,7 @@ var LoadAttendanceComponent = (function () {
         }
         else {
             this.backendService.submitAttendance(this.attendanceMatrix, this.selectedSubject)
-                .subscribe(function (userData) {
-                console.log(userData);
-            });
+                .subscribe();
             this.attendenceSubmittedMessage = "Your attendance for this week is submitted";
         }
         this.loadAttendanceSubmittedMessage = true;

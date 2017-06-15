@@ -95,12 +95,12 @@ ol li
 #logo
 { width: 1000px;
   position: relative;
-  height: 160px;
+  height: 100px;
   background: #025587 url(../images/logo.png) no-repeat;}
 
 #logo #logo_text 
 { position: absolute; 
-  top: 20px;
+  top: -20px;
   left: 0;}
 
 #logo h1, #logo h2
@@ -112,7 +112,7 @@ ol li
 #logo_text h1, #logo_text h1 a, #logo_text h1 a:hover 
 { padding: 22px 0 0 0;
   color: #FFF;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.0em;
   text-decoration: none;}
 
 #logo_text h1 a .logo_colour
@@ -223,7 +223,7 @@ ul#menu li div.selected
 
 #logout-menu{
     position: absolute;
-	float: right;
+	  float: right;
   	display: inline;
 }
 

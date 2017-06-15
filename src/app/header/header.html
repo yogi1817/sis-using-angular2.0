@@ -1,6 +1,5 @@
 <div id="header">
     <div id="logo">
-        <p>
         <div id="logo_text">
             <!-- class="logo_colour", allows you to change the colour of the text -->
             <h1>
@@ -8,10 +7,11 @@
             </h1>
             <h2>Truth. Wisdom. Prosperity.</h2>
         </div>
-        <img src="../images/logout.jpg" align="right" width="80" 
-                height="30" style="margin-top: 100px;" 
-                [hidden]="!(adminTab() || studentTab())" (click)="logout()"/>
-        <img src="../images/school_logo.jpg" align="right" style="margin-right: 50px;"/>
+        <img src="../images/school_logo.jpg" align="right" style="margin-right: -50px;"
+                    width="120" height="120"/>
+
+        <img src="../images/logout.jpg" width="80" height="30" style="margin-top: 60px; margin-left: 800px;" 
+                [hidden]="!(adminTab() || studentTab())" (click)="logout(); body.setLoginAndTabName()"/>
     </div>
     <div id="menubar">
         <ul id="menu">
@@ -55,4 +55,4 @@
     </div>	
 </div>
 
-<my-body [tabName]="tabName"></my-body>
+<my-body #body [tabName]="tabName"></my-body>

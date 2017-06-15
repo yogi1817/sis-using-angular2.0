@@ -16,24 +16,6 @@ var PieChartComponent = (function () {
         this.pieChartData = [10, 90];
         this.pieChartType = 'pie';
     }
-    // lineChartColors:Array<any> = [
-    //   { // grey
-    //     backgroundColor: 'rgba(0, 255,0.2)',
-    //     borderColor: 'rgba(0, 255, 0)',
-    //     pointBackgroundColor: 'rgba(0, 255, 0)',
-    //     pointBorderColor: '#fff',
-    //     pointHoverBackgroundColor: '#fff',
-    //     pointHoverBorderColor: 'rgba(0, 255,0.8)'
-    //   },
-    //   { // dark grey
-    //     backgroundColor: 'rgba(255, 0,0.2)',
-    //     borderColor: 'rgba(255, 0, 0)',
-    //     pointBackgroundColor: 'rgba(255, 0, 0)',
-    //     pointBorderColor: '#fff',
-    //     pointHoverBackgroundColor: '#fff',
-    //     pointHoverBorderColor: 'rgba(255, 0, 0)'
-    //   }
-    // ];
     // events
     PieChartComponent.prototype.chartClicked = function (e) {
         console.log(e);

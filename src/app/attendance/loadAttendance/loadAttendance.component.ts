@@ -43,6 +43,9 @@ export class LoadAttendanceComponent implements OnInit{
                 this.sections.push(element.section);
             }
         });
+        this.loadSubject = false;
+        this.loadStudentRow = false;
+        this.loadAttendanceSubmittedMessage = false;
         this.selectedClassNo = $event;
     }
 
@@ -54,16 +57,19 @@ export class LoadAttendanceComponent implements OnInit{
                 this.subjects.push(...element.subject);
             }
         });
+        this.loadStudentRow = false;
+        this.loadAttendanceSubmittedMessage = false;
         this.selectedSection = $event;
     }
 
     loadStudents($event: string){
-         this.selectedSubject = $event;
-         this.backendService.getStudentNamesForAdmin(this.selectedClassNo, 
+        this.selectedSubject = $event;
+        this.backendService.getStudentNamesForAdmin(this.selectedClassNo, 
                                     this.selectedSection, $event).subscribe(classData => {
-         this.students = classData;
-         this.loadStudentRow = true;
-         this.cdr.detectChanges();
+            this.students = classData;
+            this.loadStudentRow = true;
+            this.loadAttendanceSubmittedMessage = false;
+            this.cdr.detectChanges();
         });
     }
 
@@ -72,9 +78,7 @@ export class LoadAttendanceComponent implements OnInit{
             this.attendenceSubmittedMessage = "Please choose at least one checkbox";
         }else{
             this.backendService.submitAttendance(this.attendanceMatrix, this.selectedSubject)
-                            .subscribe(userData => {
-                                console.log(userData);
-                            });
+                            .subscribe();
             this.attendenceSubmittedMessage = "Your attendance for this week is submitted";
         }
         this.loadAttendanceSubmittedMessage = true;
